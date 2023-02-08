@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport"
+   content="width=device-width">
+ <title>
+  Recomiendo - PWA con Material
+  Design
+ </title>
+ <meta name="theme-color"
+   content="#fffbfe">
+ <link rel="icon" sizes="32x32"
+   href="favicon.ico">
+ <link rel="manifest"
+   href="site.webmanifest">
+ <meta
+   name="apple-mobile-web-app-title"
+   content="pwamd">
+ <meta
+   name="apple-mobile-web-app-capable"
+   content="yes">
+ <meta
+   name="apple-mobile-web-app-status-bar-style"
+   content="default">
+ <link rel="apple-touch-icon"
+   href="img/maskable_icon.png">
+ <link rel="apple-touch-icon"
+   sizes="48x48"
+   href="img/maskable_icon_x48.png">
+ <link rel="apple-touch-icon"
+   sizes="72x72"
+   href="img/maskable_icon_x72.png">
+ <link rel="apple-touch-icon"
+   sizes="96x96"
+   href="img/maskable_icon_x96.png">
+ <link rel="apple-touch-icon"
+   sizes="128x128"
+   href="img/maskable_icon_x128.png">
+ <link rel="apple-touch-icon"
+   sizes="192x192"
+   href="img/maskable_icon_x192.png">
+ <link rel="apple-touch-icon"
+   sizes="384x384"
+   href="img/maskable_icon_x384.png">
+ <link rel="apple-touch-icon"
+   sizes="512x512"
+   href="img/maskable_icon_x512.png">
+ <script type="module"
+   src="js/config.js"></script>
+ <link rel="stylesheet"
+   href="css/estilos.css">
+ <link rel="stylesheet"
+   href="lib/css/md3.css">
+</head>
+
+<body>
+ <form id="form" novalidate>
+  <center-aligned-top-app-bar>
+   <h1 slot="headline">
+    Recomiendo
+   </h1>
+   <mi-nav
+     slot="adicional"></mi-nav>
+  </center-aligned-top-app-bar>
+  <section>
+   <select-menu id="inGenero"
+     required>
+    <span slot="label">
+     *Género
+    </span>
+    <small id="msgGenero"
+      slot="supporting">
+     * Obligatorio
+    </small>
+    <menu-option
+      value=""></menu-option>
+    <menu-option value="pop">
+     Pop
+    </menu-option>
+    <menu-option value="reg">
+     Reguetón
+    </menu-option>
+   </select-menu>
+   <p>
+    <button class="filled">
+     Recomendar
+    </button>
+   </p>
+  </section>
+ </form>
+ <script type="module">
+  import {
+   muestraError
+  } from "./lib/js/muestraError.js"
+  import {
+   msg
+  } from "./lib/js/msg.js"
+  import {
+   recomienda
+  } from "./js/recomienda.js"
+
+  const OBLIGATORIO =
+   "* Obligatorio"
+
+  form.addEventListener(
+   "submit", procesa)
+  inGenero.addEventListener(
+   "input", copiaMensajes)
+
+  function copiaMensajes() {
+   msg(inGenero, msgGenero,
+    OBLIGATORIO)
+  }
+
+  /**
+   * @param {SubmitEvent} evt
+   */
+  function procesa(evt) {
+   evt.preventDefault()
+   try {
+    copiaMensajes()
+    if (inGenero.validity.valid) {
+     const genero = inGenero.value
+     const resultado =
+      recomienda(genero)
+     alert(resultado)
+    }
+   } catch (e) {
+    muestraError(e)
+   }
+  }
+ </script>
+</body>
+
+</html>
